@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name='impact-site-verification' value='25996ef8-ec29-45a2-b4f5-ef2269feacdf'>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- SEO -->
+<title>LahLearn! — Learn Italian, Brazilian Portuguese & Mandarin Chinese Free</title>
+<meta name="description" content="Learn Italian, Brazilian Portuguese and Mandarin Chinese before your trip. Free vocabulary, flashcards, pronunciation audio and quiz. No sign-up needed.">
+<meta name="keywords" content="learn Italian free, learn Brazilian Portuguese free, learn Mandarin Chinese free, Italian travel phrases, Portuguese travel phrases, Chinese travel phrases, language learning app">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://lahlearn.com/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://lahlearn.com/">
+<meta property="og:title" content="LahLearn! — Free Language Learning for Travellers">
+<meta property="og:description" content="Learn the basics before you land. Italian, Brazilian Portuguese & Mandarin. Free, no sign-up.">
+<meta property="og:image" content="https://lahlearn.com/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+<meta property="og:site_name" content="LahLearn!">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="LahLearn! — Free Language Learning for Travellers">
+<meta name="twitter:description" content="Learn the basics before you land. Free, no sign-up.">
+<meta name="twitter:image" content="https://lahlearn.com/og-image.png">
+
+<!-- Google tag -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T46XNNY38X"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-T46XNNY38X");</script>
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="favicon.ico">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,800;1,9..144,300;1,9..144,600&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --navy:  #0F1E3C;
+  --terra: #C0392B;
+  --gold:  #C8963E;
+  --cream: #FAF7F0;
+  --text:  #1a1a2e;
+  --muted: #7a7560;
+  --border: #e8dfd0;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--cream);
+  color: var(--text);
+  font-family: "Instrument Sans", sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 24px 80px;
+  position: relative;
+  text-align: center;
+}
+
+/* Subtle grain texture overlay */
+.hero::before {
+  content: "";
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 0; opacity: 0.5;
+}
+
+/* Soft colour blobs */
+.blob {
+  position: fixed; border-radius: 50%;
+  filter: blur(80px); pointer-events: none; z-index: 0;
+  animation: drift 18s ease-in-out infinite;
+}
+.blob-1 { width: 500px; height: 500px; background: rgba(192,57,43,0.06); top: -100px; right: -100px; animation-delay: 0s; }
+.blob-2 { width: 400px; height: 400px; background: rgba(200,150,62,0.07); bottom: -80px; left: -80px; animation-delay: -6s; }
+.blob-3 { width: 300px; height: 300px; background: rgba(15,30,60,0.04); top: 50%; left: 50%; transform: translate(-50%,-50%); animation-delay: -12s; }
+
+@keyframes drift {
+  0%, 100% { transform: translateY(0) scale(1); }
+  33% { transform: translateY(-20px) scale(1.03); }
+  66% { transform: translateY(12px) scale(0.97); }
+}
+
+.hero-inner {
+  position: relative; z-index: 1;
+  max-width: 560px; width: 100%;
+  display: flex; flex-direction: column; align-items: center; gap: 0;
+}
+
+/* Logo mark */
+.logo-mark {
+  margin-bottom: 28px;
+  animation: fadeUp 0.6s ease both;
+}
+.logo-mark svg { filter: drop-shadow(0 4px 16px rgba(15,30,60,0.15)); }
+
+/* Wordmark */
+.wordmark {
+  font-family: "Fraunces", serif;
+  font-size: clamp(3.2rem, 10vw, 5.5rem);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -2px;
+  margin-bottom: 20px;
+  animation: fadeUp 0.6s 0.1s ease both;
+}
+.w-lah   { color: var(--navy); }
+.w-learn { color: var(--terra); }
+.w-bang  { color: var(--gold); }
+
+/* Tagline */
+.tagline {
+  font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+  color: var(--muted);
+  font-weight: 400;
+  line-height: 1.5;
+  max-width: 360px;
+  margin-bottom: 48px;
+  animation: fadeUp 0.6s 0.2s ease both;
+}
+
+/* Language cards */
+.langs-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 14px;
+  animation: fadeUp 0.6s 0.3s ease both;
+}
+
+.langs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  width: 100%;
+  animation: fadeUp 0.6s 0.35s ease both;
+}
+
+.lang-card {
+  background: #fff;
+  border: 1.5px solid var(--border);
+  border-radius: 16px;
+  padding: 20px 16px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  text-align: center;
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  text-decoration: none;
+}
+.lang-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(15,30,60,0.1);
+  border-color: var(--navy);
+}
+.lang-card.soon {
+  opacity: 0.4; cursor: default; pointer-events: none;
+}
+.lc-flag { font-size: 2rem; line-height: 1; }
+.lc-name {
+  font-family: "Fraunces", serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--navy);
+  line-height: 1.1;
+}
+.lc-count {
+  font-size: 0.7rem;
+  color: var(--muted);
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+.lc-arrow {
+  font-size: 0.7rem;
+  color: var(--gold);
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+/* Divider */
+.hero-divider {
+  width: 40px; height: 2px;
+  background: var(--border);
+  margin: 40px auto;
+  animation: fadeUp 0.6s 0.4s ease both;
+}
+
+/* Features strip */
+.features {
+  display: flex; gap: 20px; flex-wrap: wrap;
+  justify-content: center;
+  animation: fadeUp 0.6s 0.45s ease both;
+}
+.feature {
+  font-size: 0.75rem;
+  color: var(--muted);
+  display: flex; align-items: center; gap: 5px;
+}
+.feature-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--gold); flex-shrink: 0;
+}
+
+/* Footer */
+.footer {
+  position: relative; z-index: 1;
+  padding: 0 24px 32px;
+  text-align: center;
+  font-size: 0.72rem;
+  color: var(--muted);
+  animation: fadeUp 0.6s 0.5s ease both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 400px) {
+  .langs-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .lang-card { padding: 16px 12px; }
+}
+</style>
+</head>
+<body>
+
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="blob blob-3"></div>
+
+<main class="hero">
+  <div class="hero-inner">
+
+    <!-- Logo mark -->
+    <div class="logo-mark">
+      <svg viewBox="0 0 90 90" width="72" height="72" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="45" cy="42" r="38" fill="#0F1E3C"/>
+        <polygon points="18,72 8,90 36,76" fill="#0F1E3C"/>
+        <text x="16" y="62" font-family="Georgia,serif" font-size="36" fill="#f4f0e6" font-weight="400">L</text>
+        <text x="45" y="59" font-family="Georgia,serif" font-size="40" fill="#C8963E" font-weight="700">!</text>
+      </svg>
+    </div>
+
+    <!-- Wordmark -->
+    <h1 class="wordmark">
+      <span class="w-lah">Lah</span><span class="w-learn">Learn</span><span class="w-bang">!</span>
+    </h1>
+
+    <!-- Tagline -->
+    <p class="tagline">Learn the basics before you land — free vocabulary, audio, flashcards and quiz.</p>
+
+    <!-- Language picker -->
+    <div class="langs-label">Pick a language to start</div>
+
+    <div class="langs-grid">
+
+      <a class="lang-card" href="italian.html">
+        <span class="lc-flag">🇮🇹</span>
+        <span class="lc-name">Italiano</span>
+        <span class="lc-count">290 words</span>
+        <span class="lc-arrow">Start →</span>
+      </a>
+
+      <a class="lang-card" href="portuguese.html">
+        <span class="lc-flag">🇧🇷</span>
+        <span class="lc-name">Português</span>
+        <span class="lc-count">227 words</span>
+        <span class="lc-arrow">Start →</span>
+      </a>
+
+      <a class="lang-card" href="chinese.html">
+        <span class="lc-flag">🇨🇳</span>
+        <span class="lc-name">中文 Mandarin</span>
+        <span class="lc-count">62 words</span>
+        <span class="lc-arrow">Start →</span>
+      </a>
+
+      <a class="lang-card" href="mongolian.html">
+        <span class="lc-flag">🇲🇳</span>
+        <span class="lc-name">Монгол Mongolian</span>
+        <span class="lc-count">51 words</span>
+        <span class="lc-arrow">Start →</span>
+      </a>
+
+      <div class="lang-card soon">
+        <span class="lc-flag">🌐</span>
+        <span class="lc-name">More coming</span>
+        <span class="lc-count">stay tuned</span>
+      </div>
+
+    </div>
+
+    <div class="hero-divider"></div>
+
+    <!-- Features -->
+    <div class="features">
+      <span class="feature"><span class="feature-dot"></span>Vocabulary &amp; flashcards</span>
+      <span class="feature"><span class="feature-dot"></span>Pronunciation audio</span>
+      <span class="feature"><span class="feature-dot"></span>Grammar basics</span>
+      <span class="feature"><span class="feature-dot"></span>Quiz yourself</span>
+      <span class="feature"><span class="feature-dot"></span>100% free, no sign-up</span>
+    </div>
+
+  </div>
+</main>
+
+<footer class="footer">
+  © 2025 LahLearn! &nbsp;·&nbsp; Free language learning for travellers
+</footer>
+
+</body>
+</html>

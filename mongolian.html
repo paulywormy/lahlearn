@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LahLearn! — Learn Mongolian Free</title>
+<meta name="description" content="Learn Mongolian for travel to Mongolia. Cyrillic alphabet, pronunciation, vocabulary, phrases, grammar and quiz. Free, no sign-up.">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mongolian&family=Noto+Sans:wght@300;400;500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T46XNNY38X"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-T46XNNY38X");</script>
+<link rel="icon" type="image/png" href="favicon.ico">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+:root{
+  --red:#8B0000; --gold:#C8963E; --blue:#1A237E;
+  --ink:#1a1a1a; --paper:#FAF8F4; --card:#FFFFFF;
+  --border:#E5DDD0; --muted:#7a7065;
+  --green:#1B5E20;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--paper);color:var(--ink);font-family:"Plus Jakarta Sans",sans-serif;min-height:100vh;}
+nav{position:sticky;top:0;z-index:9999;background:#0d0d0d;display:flex;align-items:center;justify-content:space-between;padding:13px 20px;border-bottom:2px solid #1a1a1a;}
+.nav-link{color:#555;font-size:0.73rem;letter-spacing:2px;text-transform:uppercase;text-decoration:none;font-family:"Plus Jakarta Sans",sans-serif;transition:color .2s;}
+.nav-link:hover{color:#ccc;}
+.update-banner{background:#1a0d00;color:#c8963e;text-align:center;padding:9px 16px;font-size:0.72rem;letter-spacing:1.5px;border-bottom:1px solid #3a2000;}
+header{background:linear-gradient(135deg,#1a0d00 0%,#3a1500 40%,#8B0000 100%);padding:32px 20px 24px;position:relative;overflow:hidden;}
+header::before{content:"ᠮᠣᠩᠭᠣᠯ";position:absolute;right:-20px;top:-10px;font-size:100px;color:rgba(200,150,62,0.07);pointer-events:none;line-height:1;}
+.header-inner{max-width:700px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+.flag-emoji{font-size:2.8rem;}
+.header-text h1{font-size:1.9rem;color:#fff;font-weight:700;line-height:1.1;}
+.header-text p{color:#c8a070;font-size:0.88rem;margin-top:4px;}
+.header-stats{display:flex;gap:10px;margin-left:auto;flex-wrap:wrap;}
+.stat-pill{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:20px;padding:6px 14px;text-align:center;}
+.stat-pill .num{display:block;font-size:1.1rem;font-weight:700;color:var(--gold);}
+.stat-pill .lbl{display:block;font-size:0.65rem;color:#888;letter-spacing:1px;text-transform:uppercase;}
+.tab-bar{background:#fff;border-bottom:2px solid var(--border);display:flex;overflow-x:auto;position:sticky;top:46px;z-index:99;-webkit-overflow-scrolling:touch;}
+.tab-bar::-webkit-scrollbar{height:3px;}.tab-bar::-webkit-scrollbar-thumb{background:var(--gold);}
+.tab-btn{flex-shrink:0;padding: 12px 14px;font-size: 0.73rem;font-weight:600;border:none;background:none;cursor:pointer;color:var(--muted);border-bottom:3px solid transparent;transition:all .2s;font-family:"Plus Jakarta Sans",sans-serif;}
+.tab-btn.active{color:var(--ink);border-bottom-color:var(--red);}
+.tab-btn:hover:not(.active){color:var(--ink);background:#f5f5f5;}
+.section{display:none;max-width:700px;margin:0 auto;padding:24px 16px 60px;}
+.section.active{display:block;}
+.section-title{font-size:1.4rem;font-weight:700;margin-bottom:4px;}
+.section-subtitle{font-size:0.85rem;color:var(--muted);margin-bottom:20px;}
+/* Mongolian script */
+.mn-script{font-family:"Noto Sans Mongolian","Noto Sans",sans-serif;}
+/* Alphabet */
+.alpha-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;}
+.alpha-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:14px;cursor:pointer;transition:all .15s;}
+.alpha-card:hover{border-color:var(--red);background:#fff5f0;}
+.alpha-letter{font-size:2rem;font-weight:700;color:var(--red);font-family:"Noto Sans",sans-serif;}
+.alpha-rom{font-size:0.8rem;font-weight:600;color:var(--gold);font-family:"DM Mono",monospace;margin:3px 0;}
+.alpha-sound{font-size:0.72rem;color:var(--muted);}
+.alpha-ex{font-size:0.7rem;color:#aaa;margin-top:4px;font-style:italic;display:none;}
+.alpha-card.flipped .alpha-ex{display:block;}
+/* Sounds */
+.sound-card{background:#fff;border-radius:16px;border:1px solid var(--border);margin-bottom:16px;overflow:hidden;}
+.sound-header{padding:14px 18px;color:#fff;display:flex;align-items:center;gap:10px;}
+.sound-header h3{font-size:0.95rem;font-weight:700;}
+.sound-header p{font-size:0.8rem;opacity:0.8;margin-top:2px;}
+.sound-item{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;gap:14px;align-items:flex-start;}
+.sound-item:last-child{border-bottom:none;}
+.sound-letter{font-size:1.6rem;font-family:"Noto Sans",sans-serif;color:var(--red);min-width:50px;font-weight:700;}
+.sound-info{flex:1;}
+.sound-tip{font-size:0.82rem;color:var(--ink);font-weight:500;margin-bottom:3px;}
+.sound-ex{font-size:0.78rem;color:var(--muted);white-space:pre-line;}
+/* Vocab */
+.vocab-filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
+.filter-btn{padding:6px 14px;border-radius:20px;border:1.5px solid var(--border);background:#fff;font-size:0.78rem;font-weight:500;cursor:pointer;transition:all .15s;font-family:"Plus Jakarta Sans",sans-serif;}
+.filter-btn.active,.filter-btn:hover{background:var(--red);border-color:var(--red);color:#fff;}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:12px;}
+.vocab-card{background:#fff;border-radius:14px;border:1px solid var(--border);padding:16px;cursor:pointer;transition:all .2s;}
+.vocab-card:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,0.08);}
+.vc-mn{font-size:1.1rem;font-weight:700;color:var(--red);font-family:"Noto Sans",sans-serif;margin-bottom:3px;display:block;}
+.vc-rom{font-size:0.75rem;color:var(--gold);font-family:"DM Mono",monospace;margin-bottom:4px;font-weight:600;}
+.vc-en{font-size:0.78rem;color:var(--muted);}
+.vc-cat{display:inline-block;font-size:0.6rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:2px 7px;border-radius:8px;background:#f5f0ea;color:var(--muted);margin-bottom:6px;}
+.vc-ex{font-size:0.72rem;color:#aaa;margin-top:8px;padding-top:8px;border-top:1px solid var(--border);display:none;}
+.vocab-card.flipped .vc-ex{display:block;}
+.speak-btn{background:none;border:none;cursor:pointer;font-size:0.95rem;opacity:0.4;transition:opacity .15s;float:right;}
+.speak-btn:hover{opacity:1;}
+/* Flashcards */
+.fc-counter{text-align:center;font-size:0.8rem;color:var(--muted);margin-bottom:14px;}
+.fc-container{perspective:1200px;margin:0 auto 20px;max-width:420px;}
+.fc-card{width:100%;min-height:240px;position:relative;transform-style:preserve-3d;transition:transform 0.55s cubic-bezier(.4,0,.2,1);cursor:pointer;}
+.fc-card.flipped{transform:rotateY(180deg);}
+.fc-front,.fc-back{position:absolute;inset:0;backface-visibility:hidden;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px 24px;gap:8px;}
+.fc-front{background:linear-gradient(135deg,#1a0d00,#8B0000);border:1px solid rgba(200,150,62,0.3);}
+.fc-back{background:var(--card);border:2px solid var(--border);transform:rotateY(180deg);}
+.fc-mn{font-size:2.2rem;color:#fff;font-family:"Noto Sans",sans-serif;font-weight:700;text-align:center;}
+.fc-hint{font-size:0.75rem;color:rgba(255,255,255,0.35);letter-spacing:1px;margin-top:8px;}
+.fc-rom{font-size:1rem;font-weight:700;font-family:"DM Mono",monospace;color:var(--red);}
+.fc-en{font-size:1rem;color:var(--muted);}
+.fc-ex{font-size:0.78rem;color:#aaa;text-align:center;max-width:300px;}
+.fc-controls{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+.fc-btn{padding:10px 20px;border-radius:10px;border:1.5px solid var(--border);background:#fff;font-size:0.82rem;font-weight:600;cursor:pointer;transition:all .15s;font-family:"Plus Jakarta Sans",sans-serif;}
+.fc-btn:hover{background:var(--ink);color:#fff;border-color:var(--ink);}
+.fc-btn.primary{background:var(--red);color:#fff;border-color:var(--red);}
+.fc-btn.primary:hover{background:#6a0000;}
+/* Phrases */
+.phrase-cat{margin-bottom:28px;}
+.phrase-cat-title{font-size:0.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;padding-bottom:6px;border-bottom:2px solid var(--red);display:flex;align-items:center;gap:8px;}
+.phrase-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:8px;}
+.phrase-mn{font-family:"Noto Sans",sans-serif;font-size:1.1rem;color:var(--red);font-weight:600;margin-bottom:3px;}
+.phrase-rom{font-size:0.78rem;font-family:"DM Mono",monospace;color:var(--gold);margin-bottom:3px;font-weight:600;}
+.phrase-en{font-size:0.82rem;color:var(--muted);}
+.phrase-row{display:flex;align-items:flex-start;gap:12px;}
+.phrase-info{flex:1;}
+.phrase-speak{background:none;border:none;cursor:pointer;font-size:1.1rem;opacity:0.4;transition:opacity .15s;flex-shrink:0;padding-top:2px;}
+.phrase-speak:hover{opacity:1;}
+/* Grammar */
+.grammar-card{background:#fff;border-radius:16px;border:1px solid var(--border);margin-bottom:16px;overflow:hidden;}
+.grammar-header{padding:14px 18px;color:#fff;}
+.grammar-header h3{font-size:1rem;font-weight:700;}
+.grammar-header p{font-size:0.8rem;opacity:0.8;margin-top:2px;}
+.grammar-body{padding:4px 0;}
+.grammar-row{display:grid;grid-template-columns:1fr 1fr 1fr;padding:10px 18px;gap:8px;border-bottom:1px solid var(--border);font-size:0.85rem;}
+.grammar-row:last-child{border-bottom:none;}
+.grammar-row.hdr{font-weight:700;font-size:0.72rem;letter-spacing:0.5px;text-transform:uppercase;color:var(--muted);background:#f8f5f0;}
+.grammar-note{padding:12px 18px;font-size:0.83rem;color:#444;line-height:1.6;border-top:1px solid var(--border);background:#fffbf5;}
+/* Quiz */
+.quiz-type-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
+.quiz-question{background:linear-gradient(135deg,#1a0d00,#8B0000);border-radius:16px;padding:28px 24px;text-align:center;margin-bottom:16px;}
+.quiz-q-mn{font-family:"Noto Sans",sans-serif;font-size:2rem;color:#fff;display:block;margin-bottom:6px;font-weight:700;}
+.quiz-q-rom{font-size:0.85rem;color:rgba(255,255,255,0.5);font-family:"DM Mono",monospace;}
+.quiz-options{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.quiz-option{padding:14px;border-radius:12px;border:2px solid var(--border);background:#fff;cursor:pointer;font-size:0.88rem;font-weight:500;transition:all .15s;text-align:center;font-family:"Plus Jakarta Sans",sans-serif;}
+.quiz-option:hover:not(:disabled){border-color:var(--red);background:#fff5f0;}
+.quiz-option.correct{border-color:#1B5E20;background:#f1f8e9;color:#1B5E20;}
+.quiz-option.wrong{border-color:var(--red);background:#fff0f0;color:var(--red);}
+.quiz-option:disabled{cursor:default;}
+.quiz-feedback{padding:12px 16px;border-radius:10px;font-size:0.85rem;margin-top:12px;display:none;}
+.quiz-feedback.show{display:block;}
+.quiz-feedback.correct{background:#f1f8e9;color:#1B5E20;}
+.quiz-feedback.wrong{background:#fff0f0;color:var(--red);}
+.quiz-next{display:none;margin-top:12px;width:100%;padding:12px;border-radius:10px;background:var(--red);color:#fff;border:none;font-size:0.88rem;font-weight:600;cursor:pointer;font-family:"Plus Jakarta Sans",sans-serif;}
+.score-card{background:linear-gradient(135deg,#1a0d00,#8B0000);border-radius:20px;padding:40px 24px;text-align:center;color:#fff;}
+.score-big{font-size:4rem;font-weight:700;color:var(--gold);}
+.score-label{font-size:0.9rem;color:rgba(255,255,255,0.6);margin-top:4px;}
+.score-msg{font-size:1rem;margin:16px 0;}
+.retry-btn{padding:12px 28px;border-radius:10px;background:var(--gold);color:#fff;border:none;font-size:0.9rem;font-weight:600;cursor:pointer;font-family:"Plus Jakarta Sans",sans-serif;}
+/* Difficulty banner */
+.difficulty-banner{background:linear-gradient(135deg,#1a0d00,#3a1500);border-radius:14px;padding:16px 20px;margin-bottom:20px;color:#c8a070;font-size:0.83rem;line-height:1.6;border:1px solid rgba(200,150,62,0.2);}
+.difficulty-banner strong{color:var(--gold);}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-link">← LahLearn!</a>
+  <a href="italian.html" class="nav-link">🇮🇹 Italiano →</a>
+</nav>
+<div class="update-banner">✨ NEW WORDS &amp; FEATURES ADDED REGULARLY — CHECK BACK OFTEN</div>
+
+<header>
+  <div class="header-inner">
+    <div class="flag-emoji">🇲🇳</div>
+    <div class="header-text">
+      <h1>Монгол хэл — Mongolian</h1>
+      <p>Mongolian for English speakers — alphabet-first approach</p>
+    </div>
+    <div class="header-stats">
+      <div class="stat-pill"><span class="num" id="mn-word-count">51</span><span class="lbl">Words</span></div>
+      <div class="stat-pill"><span class="num" id="quizScore">—</span><span class="lbl">Last Score</span></div>
+    </div>
+  </div>
+</header>
+
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="showTab('alphabet')">🔤 Alphabet</button>
+  <button class="tab-btn" onclick="showTab('sounds')">🔊 Sounds</button>
+  <button class="tab-btn" onclick="showTab('vocab')">📚 Vocabulary</button>
+  <button class="tab-btn" onclick="showTab('phrases')">💬 Phrases</button>
+  <button class="tab-btn" onclick="showTab('flashcards')">🃏 Flashcards</button>
+  <button class="tab-btn" onclick="showTab('grammar')">📖 Grammar</button>
+  <button class="tab-btn" onclick="showTab('quiz')">🧠 Quiz</button>
+</div>
+
+<main>
+
+<!-- ALPHABET -->
+<div class="section active" id="section-alphabet">
+  <h2 class="section-title">The Mongolian Alphabet</h2>
+  <p class="section-subtitle">Modern Mongolian uses Cyrillic script (35 letters). Learn these first — tap a card to see an example.</p>
+  <div class="difficulty-banner">
+    ⚠️ <strong>Good news:</strong> Mongolian Cyrillic is largely phonetic — once you learn the letters, you can read words. Most letters match Russian Cyrillic. The two unique ones are <strong>Ө</strong> and <strong>Ү</strong>.
+  </div>
+  <div class="alpha-grid" id="alphaGrid"></div>
+</div>
+
+<!-- SOUNDS -->
+<div class="section" id="section-sounds">
+  <h2 class="section-title">Key Sounds & Rules</h2>
+  <p class="section-subtitle">Master these before vocab — they are fundamental to Mongolian.</p>
+  <div class="difficulty-banner">
+    ⚠️ <strong>Unlike Chinese:</strong> Mongolian has NO tones. But it has <strong>vowel harmony</strong> and guttural sounds that English doesn't have. Focus on Х (kh) and Ө/Ү first.
+  </div>
+  <div id="soundCards"></div>
+</div>
+
+<!-- VOCAB -->
+<div class="section" id="section-vocab">
+  <h2 class="section-title">Vocabulary</h2>
+  <p class="section-subtitle">Mongolian shown with romanisation below. Tap a card for an example sentence.</p>
+  <div class="vocab-filters" id="vocabFilters"></div>
+  <div class="vocab-grid" id="vocabGrid"></div>
+</div>
+
+<!-- PHRASES -->
+<div class="section" id="section-phrases">
+  <h2 class="section-title">Common Phrases</h2>
+  <p class="section-subtitle">Real survival phrases. Mongolian script + romanisation + English. Tap 🔊 to hear.</p>
+  <div id="phraseList"></div>
+</div>
+
+<!-- FLASHCARDS -->
+<div class="section" id="section-flashcards">
+  <h2 class="section-title">Flashcards</h2>
+  <p class="section-subtitle">See the Mongolian — guess the meaning. Tap to flip.</p>
+  <div class="fc-counter" id="fc-counter">1 / 1</div>
+  <div class="fc-container">
+    <div class="fc-card" id="flashcard" onclick="flipCard()">
+      <div class="fc-front">
+        <span class="fc-mn" id="fc-mn">Сайн байна уу?</span>
+        <span class="fc-hint">tap to reveal</span>
+      </div>
+      <div class="fc-back">
+        <div class="fc-rom" id="fc-rom"></div>
+        <div class="fc-en"  id="fc-en"></div>
+        <div class="fc-ex"  id="fc-ex"></div>
+      </div>
+    </div>
+  </div>
+  <div class="fc-controls">
+    <button class="fc-btn" onclick="prevCard()">← Prev</button>
+    <button class="fc-btn" onclick="speakCurrent()">🔊 Hear</button>
+    <button class="fc-btn" onclick="shuffleCards()">🔀 Shuffle</button>
+    <button class="fc-btn primary" onclick="nextCard()">Next →</button>
+  </div>
+</div>
+
+<!-- GRAMMAR -->
+<div class="section" id="section-grammar">
+  <h2 class="section-title">Grammar Basics</h2>
+  <p class="section-subtitle">The five rules you must know before speaking Mongolian.</p>
+  <div class="difficulty-banner">
+    ⚠️ <strong>Hardest part:</strong> Mongolian grammar is very different from English — verbs go last, suffixes change based on vowel harmony, and there are no articles or gender. But the rules are <strong>consistent</strong> — far fewer exceptions than English.
+  </div>
+  <div id="grammarGrid"></div>
+</div>
+
+<!-- QUIZ -->
+<div class="section" id="section-quiz">
+  <h2 class="section-title">Quiz</h2>
+  <p class="section-subtitle">Test your Mongolian vocabulary and romanisation.</p>
+  <div class="quiz-type-bar" id="quizTypeBar"></div>
+  <div id="quizContainer"></div>
+</div>
+
+</main>
+
+<script>
+
+// ── MONGOLIAN DATA ──
+
+const MN_ALPHABET = [
+  // Group 1: Similar to Russian/familiar
+  { letter:"А а", rom:"a",  sound:"like 'a' in father",     ex:"ах (ah) = brother" },
+  { letter:"Б б", rom:"b",  sound:"like 'b' in boy",         ex:"байна (bayna) = is/am" },
+  { letter:"В в", rom:"v",  sound:"like 'v' in vine",         ex:"van (van) = van" },
+  { letter:"Г г", rom:"g",  sound:"like 'g' in go",           ex:"гэр (ger) = home/yurt" },
+  { letter:"Д д", rom:"d",  sound:"like 'd' in dog",          ex:"дэн (den) = lamp" },
+  { letter:"Е е", rom:"ye", sound:"like 'ye' in yes",         ex:"ер (yer) = really" },
+  { letter:"Ё ё", rom:"yo", sound:"like 'yo' in yoghurt",     ex:"ёроол (yorool) = bottom" },
+  { letter:"З з", rom:"z",  sound:"like 'z' in zoo",          ex:"зах (zakh) = market" },
+  { letter:"И и", rom:"i",  sound:"like 'ee' in see",         ex:"их (ikh) = big/much" },
+  { letter:"К к", rom:"k",  sound:"like 'k' in kite",         ex:"ком (kom) = room" },
+  { letter:"Л л", rom:"l",  sound:"like 'l' in love",         ex:"лав (lav) = surely" },
+  { letter:"М м", rom:"m",  sound:"like 'm' in moon",         ex:"маш (mash) = very" },
+  { letter:"Н н", rom:"n",  sound:"like 'n' in name",         ex:"нар (nar) = sun/people" },
+  { letter:"О о", rom:"o",  sound:"like 'o' in more (back)",  ex:"ор (or) = enter/bed" },
+  { letter:"П п", rom:"p",  sound:"like 'p' in pen",          ex:"пуу (puu) = tree" },
+  { letter:"Р р", rom:"r",  sound:"rolled r, like Spanish r", ex:"рад (rad) = glad" },
+  { letter:"С с", rom:"s",  sound:"like 's' in sun",          ex:"сайн (sain) = good/well" },
+  { letter:"Т т", rom:"t",  sound:"like 't' in top",          ex:"таван (tavan) = five" },
+  { letter:"У у", rom:"u",  sound:"like 'oo' in moon (back)", ex:"ус (us) = water" },
+  { letter:"Ф ф", rom:"f",  sound:"like 'f' in fun",          ex:"фото (foto) = photo" },
+  { letter:"Х х", rom:"kh", sound:"like 'ch' in loch (guttural!)", ex:"хоол (khool) = food" },
+  { letter:"Ц ц", rom:"ts", sound:"like 'ts' in cats",        ex:"цаг (tsag) = time/clock" },
+  { letter:"Ч ч", rom:"ch", sound:"like 'ch' in church",      ex:"чи (chi) = you (informal)" },
+  { letter:"Ш ш", rom:"sh", sound:"like 'sh' in shop",        ex:"шөнө (shono) = night" },
+  { letter:"Щ щ", rom:"shch", sound:"like 'shch' (rare)",     ex:"(mostly in loanwords)" },
+  // Mongolian-specific
+  { letter:"Ө ө", rom:"o",  sound:"like German ö — round lips say 'e'", ex:"өнөөдөр (onoodor) = today" },
+  { letter:"Ү ү", rom:"u",  sound:"like German ü — round lips say 'ee'", ex:"үнэ (une) = price" },
+  { letter:"Ъ ъ", rom:"",   sound:"hard sign — separates syllables",     ex:"(no sound, rare)" },
+  { letter:"Ь ь", rom:"",   sound:"soft sign — softens preceding consonant", ex:"(subtle effect)" },
+  { letter:"Э э", rom:"e",  sound:"like 'e' in bed (front vowel)",       ex:"энэ (ene) = this" },
+  { letter:"Ю ю", rom:"yu", sound:"like 'yu' in yule",                   ex:"юу (yuu) = what" },
+  { letter:"Я я", rom:"ya", sound:"like 'ya' in yard",                   ex:"яах (yaakh) = what to do" },
+];
+
+const MN_SOUNDS = [
+  { title:"Vowel Harmony — The Core Rule", icon:"🎵",
+    desc:"Every Mongolian word uses EITHER back vowels OR front vowels — never mixed. This affects suffixes too.",
+    items:[
+      { sound:"Back vowels: А О У", rom:"a, o, u", tip:"Deep in throat. These go together.", ex:"Монгол (Mongol) — a, o are both back" },
+      { sound:"Front vowels: Э Ө Ү И", rom:"e, o, u, i", tip:"Front of mouth. These go together.", ex:"өнөөдөр (onoodor) — all front vowels" },
+    ]},
+  { title:"The Guttural Х (kh)", icon:"🔊",
+    desc:"The most important Mongolian sound — like clearing your throat gently.",
+    items:[
+      { sound:"Х", rom:"kh", tip:"Like 'ch' in Scottish loch or German Bach. NOT like English h.", ex:"хоол (khool) = food\nхаан (khaan) = king\nхайр (khair) = love" },
+    ]},
+  { title:"The Rolled Р (r)", icon:"🌀",
+    desc:"Always rolled, like Spanish r. Never silent.",
+    items:[
+      { sound:"Р", rom:"r", tip:"Tip of tongue vibrates against the ridge behind upper teeth.", ex:"рашаан (rashaan) = spring water\nгар (gar) = hand" },
+    ]},
+  { title:"Tricky Letter Pairs", icon:"⚠️",
+    desc:"These look similar but sound different — easy to confuse.",
+    items:[
+      { sound:"О vs Ө", rom:"o vs o", tip:"О is back (like 'aw'), Ө is front (like German ö).", ex:"ор (or) = enter vs өр (or) = debt" },
+      { sound:"У vs Ү", rom:"u vs u", tip:"У is back (like 'oo'), Ү is front (like French u).", ex:"ус (us) = water vs үс (us) = hair" },
+    ]},
+  { title:"SOV Word Order", icon:"🔄",
+    desc:"Mongolian puts the verb at the END. Subject → Object → Verb.",
+    items:[
+      { sound:"English: I eat food.", rom:"", tip:"In Mongolian: Би хоол идэж байна. (Bi khool ideej baina.) Literally: I food am-eating.", ex:"Verb always comes last — no exceptions!" },
+      { sound:"English: I love you.", rom:"", tip:"Mongolian: Би чамд хайртай. (Bi chamd khairtal.) Literally: I you-to love-have.", ex:"Even in short sentences, verb is final." },
+    ]},
+];
+
+const MN_VOCAB = [
+  // Greetings
+  { mn:"Сайн байна уу?", rom:"Sain baina uu?", en:"How are you? (formal hello)", cat:"Greetings", ex:"First thing to say when meeting anyone." },
+  { mn:"Сайн байна",    rom:"Sain baina",     en:"I am well (reply)",            cat:"Greetings", ex:"Standard reply to Sain baina uu?" },
+  { mn:"Сайн уу",       rom:"Sain uu",        en:"Hello (informal)",              cat:"Greetings", ex:"Used with friends and younger people." },
+  { mn:"Баяртай",       rom:"Bayartai",       en:"Goodbye",                       cat:"Greetings", ex:"Баяртай! = Goodbye! (lit. 'with joy')" },
+  { mn:"Баярлалаа",     rom:"Bayarlalaa",     en:"Thank you",                     cat:"Greetings", ex:"One of the hardest words to pronounce!" },
+  { mn:"Уучлаарай",     rom:"Uuchlaarai",     en:"Sorry / Excuse me",             cat:"Greetings", ex:"Used for apology and getting attention." },
+  { mn:"Тийм",          rom:"Tiim",           en:"Yes",                           cat:"Greetings", ex:"Тийм ээ = Yes (emphatic)" },
+  { mn:"Үгүй",          rom:"Ugui",           en:"No",                            cat:"Greetings", ex:"Үгүй ээ = No (emphatic)" },
+  { mn:"Би",            rom:"Bi",             en:"I / Me",                        cat:"Greetings", ex:"Би Монголд байна. (I am in Mongolia.)" },
+  { mn:"Та",            rom:"Ta",             en:"You (formal)",                  cat:"Greetings", ex:"Always use Та with adults you don't know." },
+  // Numbers
+  { mn:"Нэг",   rom:"Neg",    en:"One",    cat:"Numbers", ex:"Нэг аяга цай. (One cup of tea.)" },
+  { mn:"Хоёр",  rom:"Khoyor", en:"Two",    cat:"Numbers", ex:"Хоёр хүн. (Two people.)" },
+  { mn:"Гурав", rom:"Gurav",  en:"Three",  cat:"Numbers", ex:"Гурав хоног. (Three days.)" },
+  { mn:"Дөрөв", rom:"Dorov",  en:"Four",   cat:"Numbers", ex:"Дөрөв цаг. (Four o'clock.)" },
+  { mn:"Тав",   rom:"Tav",    en:"Five",   cat:"Numbers", ex:"Тав мянга. (Five thousand.)" },
+  { mn:"Зургаа",rom:"Zurgaa", en:"Six",    cat:"Numbers", ex:"Зургаан сар. (Six months.)" },
+  { mn:"Долоо", rom:"Doloo",  en:"Seven",  cat:"Numbers", ex:"Долоо хоног. (One week — lit. seven days.)" },
+  { mn:"Найм",  rom:"Naim",   en:"Eight",  cat:"Numbers", ex:"Найман цаг. (Eight o'clock.)" },
+  { mn:"Ес",    rom:"Yes",    en:"Nine",   cat:"Numbers", ex:"Есөн сар. (September.)" },
+  { mn:"Арав",  rom:"Arav",   en:"Ten",    cat:"Numbers", ex:"Аравхан минут. (Just ten minutes.)" },
+  { mn:"Зуу",   rom:"Zuu",    en:"Hundred",cat:"Numbers", ex:"Нэг зуун төгрөг. (One hundred tugrik.)" },
+  // Food
+  { mn:"Хоол",       rom:"Khool",       en:"Food / Meal",      cat:"Food", ex:"Хоол идэх уу? (Shall we eat?)" },
+  { mn:"Цай",        rom:"Tsai",        en:"Tea",              cat:"Food", ex:"Сүүтэй цай. (Milk tea — the national drink.)" },
+  { mn:"Ус",         rom:"Us",          en:"Water",            cat:"Food", ex:"Ус уух уу? (Do you want water?)" },
+  { mn:"Мах",        rom:"Makh",        en:"Meat",             cat:"Food", ex:"Монголчууд мах их идэнэ. (Mongolians eat a lot of meat.)" },
+  { mn:"Тал хаяа",   rom:"Tal khaya",   en:"Tsampa (roasted barley)", cat:"Food", ex:"Traditional Mongolian staple." },
+  { mn:"Буузан",     rom:"Buuzan",      en:"Buuz (steamed dumplings)", cat:"Food", ex:"Буузан идэх үү? (Shall we eat buuz?)" },
+  { mn:"Цагаан идээ",rom:"Tsagaan idee",en:"White food (dairy)", cat:"Food", ex:"Traditional: milk, cheese, yogurt products." },
+  { mn:"Архи",       rom:"Arkhi",       en:"Vodka / spirits",  cat:"Food", ex:"Монгол архи. (Mongolian spirits.)" },
+  // Travel
+  { mn:"Гэр",        rom:"Ger",         en:"Yurt / Home",      cat:"Travel", ex:"Гэрт тавтай морил. (Welcome to the yurt/home.)" },
+  { mn:"Нийслэл",    rom:"Niislel",     en:"Capital city",     cat:"Travel", ex:"Улаанбаатар бол нийслэл. (Ulaanbaatar is the capital.)" },
+  { mn:"Онгоц",      rom:"Ongots",      en:"Airplane",         cat:"Travel", ex:"Онгоц хэдэн цагт гарах вэ? (What time does the plane leave?)" },
+  { mn:"Машин",      rom:"Mashin",      en:"Car",              cat:"Travel", ex:"Машин байна уу? (Is there a car?)" },
+  { mn:"Морь",       rom:"Mor",         en:"Horse",            cat:"Travel", ex:"Морь унах уу? (Do you want to ride a horse?)" },
+  { mn:"Зам",        rom:"Zam",         en:"Road / Way",       cat:"Travel", ex:"Энэ зам хаана очих вэ? (Where does this road go?)" },
+  { mn:"Зочид буудал",rom:"Zochid buudal",en:"Hotel",          cat:"Travel", ex:"Зочид буудал хаана байна? (Where is the hotel?)" },
+  { mn:"Нааш",       rom:"Naash",       en:"This way / Come here", cat:"Travel", ex:"Нааш ирээрэй. (Please come here.)" },
+  // Phrases
+  { mn:"Би ойлгохгүй байна", rom:"Bi oilgokhgui baina", en:"I don't understand", cat:"Phrases", ex:"Slow down! Very useful for beginners." },
+  { mn:"Давтаж хэлнэ үү?",   rom:"Davtaj khelne uu?",  en:"Can you repeat that?", cat:"Phrases", ex:"Ask your Mongolian friend to say it again." },
+  { mn:"Англиар ярьдаг уу?", rom:"Angliar yariddag uu?",en:"Do you speak English?", cat:"Phrases", ex:"Angliar = in English, yariddag = speak (habitually)" },
+  { mn:"Хэд вэ?",             rom:"Khed ve?",           en:"How much?",            cat:"Phrases", ex:"Short and essential for shopping." },
+  { mn:"Хэрэггүй",            rom:"Khereggui",          en:"No need / I don't want", cat:"Phrases", ex:"Politely decline offers." },
+  { mn:"Сайхан байна",        rom:"Saikhan baina",      en:"It's beautiful / nice", cat:"Phrases", ex:"Perfect for complimenting the steppe!" },
+  { mn:"Яасан сайхан вэ!",    rom:"Yaasan saikhan ve!", en:"How beautiful!",        cat:"Phrases", ex:"Express wonder at Mongolian landscapes." },
+  { mn:"Амжилт хүсье",        rom:"Amjilt khusye",      en:"Good luck / Best wishes", cat:"Phrases", ex:"Literally 'I wish you success'." },
+  // Emergencies
+  { mn:"Тусалаарай!",    rom:"Tusalaarai!", en:"Help!",             cat:"Emergencies", ex:"Emergency call for help." },
+  { mn:"Эмч",            rom:"Emch",        en:"Doctor",            cat:"Emergencies", ex:"Эмч хаана байна? (Where is a doctor?)" },
+  { mn:"Эмнэлэг",        rom:"Emneleh",     en:"Hospital",          cat:"Emergencies", ex:"Эмнэлэг рүү яваарай. (Go to the hospital.)" },
+  { mn:"Цагдаа",         rom:"Tsagdaa",     en:"Police",            cat:"Emergencies", ex:"Цагдаа дуудна. (Call the police.)" },
+  { mn:"Гал",            rom:"Gal",         en:"Fire",              cat:"Emergencies", ex:"Гал! = Fire! (emergency)" },
+  { mn:"Би өвдөж байна", rom:"Bi ovdoj baina", en:"I am sick",      cat:"Emergencies", ex:"Literally: I am hurting/being sick." },
+];
+
+const MN_PHRASES = [
+  { cat:"Meeting People", icon:"🤝", items:[
+    { mn:"Сайн байна уу?",          rom:"Sain baina uu?",      en:"How are you? (Hello)" },
+    { mn:"Сайн байна, баярлалаа.",  rom:"Sain baina, bayarlalaa.", en:"I'm well, thank you." },
+    { mn:"Таны нэр хэн бэ?",        rom:"Tany ner khen be?",   en:"What is your name?" },
+    { mn:"Миний нэр ____.",          rom:"Minii ner ____.",     en:"My name is ____." },
+    { mn:"Та хаанаас ирсэн бэ?",    rom:"Ta khaanaas irsen be?", en:"Where are you from?" },
+    { mn:"Би Сингапураас ирсэн.",   rom:"Bi Singaporaas irsen.", en:"I am from Singapore." },
+    { mn:"Танилцсандаа баяртай.",   rom:"Taniltsandaa bayartai.", en:"Nice to meet you." },
+  ]},
+  { cat:"Eating & Drinking", icon:"🍖", items:[
+    { mn:"Хоол идэх үү?",           rom:"Khool idekh uu?",     en:"Shall we eat?" },
+    { mn:"Цай уух уу?",             rom:"Tsai uukh uu?",       en:"Shall we have tea?" },
+    { mn:"Маш амттай байна!",       rom:"Mash amttai baina!",  en:"It's very delicious!" },
+    { mn:"Буузан авч өгнө үү?",     rom:"Buuzan avch ogno uu?",en:"Can I have some buuz please?" },
+    { mn:"Хэд вэ?",                 rom:"Khed ve?",            en:"How much?" },
+    { mn:"Дансгүй байна уу?",       rom:"Dansgui baina uu?",   en:"Can I have the bill?" },
+  ]},
+  { cat:"Getting Around", icon:"🐴", items:[
+    { mn:"___ хаана байна вэ?",     rom:"___ khaana baina ve?",en:"Where is ___?" },
+    { mn:"Баруун тийш яваарай.",    rom:"Baruun tiish yavarai.",en:"Go to the right." },
+    { mn:"Зүүн тийш яваарай.",      rom:"Zuun tiish yavarai.", en:"Go to the left." },
+    { mn:"Шулуун яваарай.",         rom:"Shuluun yavarai.",    en:"Go straight ahead." },
+    { mn:"Хэр хол байна вэ?",       rom:"Kher khol baina ve?", en:"How far is it?" },
+    { mn:"Энэ газар хаана байна?",  rom:"Ene gazar khaana baina?", en:"Where is this place?" },
+  ]},
+  { cat:"Nomadic Culture", icon:"🏕️", items:[
+    { mn:"Гэрт тавтай морил.",      rom:"Gert tavtai moril.",  en:"Welcome to the ger (yurt)." },
+    { mn:"Сайхан байна!",           rom:"Saikhan baina!",      en:"It's beautiful!" },
+    { mn:"Морь унаж болох уу?",     rom:"Mor unaj bolokh uu?", en:"May I ride the horse?" },
+    { mn:"Монгол орон их үзэсгэлэнтэй.", rom:"Mongol oron ikh uzesgelentei.", en:"Mongolia is very beautiful." },
+    { mn:"Цэнхэр тэнгэр.",          rom:"Tsenkher tenger.",    en:"Blue sky (national pride)." },
+    { mn:"Монголчуудын уламжлал.", rom:"Mongolchuudyn ulamjlal.", en:"Mongolian tradition." },
+  ]},
+  { cat:"Emergencies", icon:"🚨", items:[
+    { mn:"Тусалаарай!",             rom:"Tusalaarai!",         en:"Help!" },
+    { mn:"Эмч дуудаарай.",          rom:"Emch duudaarai.",     en:"Call a doctor." },
+    { mn:"Цагдаа дуудаарай.",       rom:"Tsagdaa duudaarai.",  en:"Call the police." },
+    { mn:"Би өвдөж байна.",         rom:"Bi ovdoj baina.",     en:"I am sick." },
+    { mn:"Би ойлгохгүй байна.",     rom:"Bi oilgokhgui baina.",en:"I don't understand." },
+    { mn:"Давтаж хэлнэ үү?",        rom:"Davtaj khelne uu?",   en:"Can you repeat that?" },
+  ]},
+];
+
+const MN_GRAMMAR = [
+  { title:"SOV — Verb Always Last", subtitle:"The single most important grammar rule",
+    color:"#8B0000",
+    rows:[
+      ["Structure","Mongolian","English"],
+      ["S + O + V","Би ус уунa.","I drink water."],
+      ["","Bi us uuna.","(I water drink.)"],
+      ["S + O + V","Та хоол идэнэ үү?","Do you eat food?"],
+      ["","Ta khool idene uu?","(You food eat-question?)"],
+      ["S + O + V","Тэр Монгол хэл сурдаг.","He learns Mongolian."],
+      ["","Ter Mongol khel surdag.","(He Mongolian language learns.)"],
+    ],
+    note:"The verb ALWAYS goes at the end. Even in questions — the question particle uu/uu just attaches to the final verb." },
+  { title:"No Articles, No Gender", subtitle:"Much simpler than European languages",
+    color:"#1B5E20",
+    rows:[
+      ["Mongolian","Romanisation","Means"],
+      ["ном","nom","a book / the book / books"],
+      ["хоол","khool","food / a meal / the food"],
+      ["гэр","ger","a yurt / the yurt / yurts"],
+      ["хүн","khun","a person / the person / people"],
+    ],
+    note:"Mongolian has NO articles (a/the) and NO grammatical gender. Every noun is the same regardless of who it refers to." },
+  { title:"Vowel Harmony in Suffixes", subtitle:"Suffixes change to match the vowel type of the root word",
+    color:"#1A237E",
+    rows:[
+      ["Root type","Root word","Suffix","Result"],
+      ["Back vowels","хоол (food)","–ны","хоолны (of food)"],
+      ["Front vowels","өрөө (room)","–ний","өрөөний (of room)"],
+      ["Back vowels","ном (book)","–ыг","номыг (book, object)"],
+      ["Front vowels","гэр (home)","–ийг","гэрийг (home, object)"],
+    ],
+    note:"You must identify whether a word uses back vowels (а,о,у) or front vowels (э,ө,ү) before adding any suffix. The suffix vowel must match." },
+  { title:"Negation — гүй", subtitle:"Add -гүй to the verb stem to negate",
+    color:"#B71C1C",
+    rows:[
+      ["Positive","Negative","Meaning"],
+      ["байна (is/am)","байхгүй (is not)","to not be"],
+      ["ойлгоно (understand)","ойлгохгүй (don't understand)","to not understand"],
+      ["яарна (hurry)","яарахгүй (don't hurry)","to not hurry"],
+      ["мэднэ (know)","мэдэхгүй (don't know)","to not know"],
+    ],
+    note:"Negation uses the suffix -гүй (gui). It attaches after the verb stem. So 'I don't understand' = Би ойлгохгүй байна. (literally: I understand-not am.)" },
+  { title:"Polite vs Informal", subtitle:"Always use formal with strangers and elders",
+    color:"#4A148C",
+    rows:[
+      ["Formal (Та)","Informal (Чи)","Meaning"],
+      ["Та сайн байна уу?","Чи сайн уу?","How are you?"],
+      ["Та юу хүсэх вэ?","Чи юу хүсэх вэ?","What do you want?"],
+      ["Та нэрээ хэлнэ үү?","Чиний нэр хэн бэ?","What is your name?"],
+    ],
+    note:"Always use Та (Ta) with adults, strangers, elders and in formal situations. Чи (Chi) is only for close friends, children, and informal settings." },
+];
+
+
+// ── VOICE ──
+var mnVoice = null;
+function loadMnVoice() {
+  var voices = window.speechSynthesis.getVoices();
+  mnVoice = voices.find(function(v){ return v.lang === 'mn-MN'; }) ||
+            voices.find(function(v){ return v.lang.startsWith('mn'); }) || null;
+}
+if (typeof speechSynthesis !== 'undefined') {
+  speechSynthesis.onvoiceschanged = loadMnVoice;
+  loadMnVoice();
+}
+function speak(text, btn) {
+  if (!('speechSynthesis' in window)) return;
+  if (!mnVoice) loadMnVoice();
+  speechSynthesis.cancel();
+  var utt = new SpeechSynthesisUtterance(text);
+  utt.lang = 'mn-MN';
+  utt.rate = 0.75;
+  if (mnVoice) utt.voice = mnVoice;
+  if (btn) { var o = btn.textContent; btn.textContent = '🔊'; utt.onend = function(){ btn.textContent = o; }; }
+  speechSynthesis.speak(utt);
+}
+
+// ── TABS ──
+function showTab(tab) {
+  document.querySelectorAll('.section').forEach(function(s){ s.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.getElementById('section-' + tab).classList.add('active');
+  document.querySelectorAll('.tab-btn').forEach(function(b){
+    if (b.getAttribute('onclick') && b.getAttribute('onclick').indexOf("'" + tab + "'") !== -1)
+      b.classList.add('active');
+  });
+}
+
+// ── ALPHABET ──
+function renderAlphabet() {
+  var grid = document.getElementById('alphaGrid');
+  if (!grid) return;
+  grid.innerHTML = MN_ALPHABET.map(function(a, i) {
+    return '<div class="alpha-card" onclick="this.classList.toggle(&quot;flipped&quot;)" data-aidx="' + i + '">' +
+      '<div style="display:flex;align-items:center;gap:10px;">' +
+        '<span class="alpha-letter">' + a.letter + '</span>' +
+        '<div>' +
+          '<div class="alpha-rom">' + (a.rom || '—') + '</div>' +
+          '<div class="alpha-sound">' + a.sound + '</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="alpha-ex">' + a.ex + '</div>' +
+    '</div>';
+  }).join('');
+}
+
+// ── SOUNDS ──
+function renderSounds() {
+  var CAT_COLORS = ['#8B0000','#1B5E20','#1A237E','#B71C1C','#4A148C'];
+  document.getElementById('soundCards').innerHTML = MN_SOUNDS.map(function(s, si) {
+    var col = CAT_COLORS[si % CAT_COLORS.length];
+    return '<div class="sound-card">' +
+      '<div class="sound-header" style="background:' + col + ';">' +
+        '<div>' +
+          '<div style="font-size:1.5rem;">' + s.icon + '</div>' +
+        '</div>' +
+        '<div><h3>' + s.title + '</h3><p>' + s.desc + '</p></div>' +
+      '</div>' +
+      s.items.map(function(item) {
+        return '<div class="sound-item">' +
+          '<div class="sound-letter">' + item.sound + '</div>' +
+          '<div class="sound-info">' +
+            (item.rom ? '<div style="font-size:0.72rem;font-family:DM Mono,monospace;color:' + col + ';font-weight:700;margin-bottom:3px;">' + item.rom + '</div>' : '') +
+            '<div class="sound-tip">' + item.tip + '</div>' +
+            '<div class="sound-ex">' + item.ex + '</div>' +
+          '</div>' +
+        '</div>';
+      }).join('') +
+    '</div>';
+  }).join('');
+}
+
+// ── VOCAB ──
+var vocabFilter = 'All';
+var CAT_COLORS_MAP = {Greetings:'#8B0000',Numbers:'#1A237E',Food:'#4E342E',Travel:'#1B5E20',Phrases:'#C8963E',Emergencies:'#B71C1C'};
+
+function renderVocab() {
+  var cats = ['All', 'Greetings', 'Numbers', 'Food', 'Travel', 'Phrases', 'Emergencies'];
+  var filterHTML = '';
+  cats.forEach(function(c) {
+    filterHTML += '<button class="filter-btn' + (c === vocabFilter ? ' active' : '') + '" onclick="setVF(this.dataset.cat)" data-cat="' + c + '">' + c + '</button>';
+  });
+  document.getElementById('vocabFilters').innerHTML = filterHTML;
+  var list = vocabFilter === 'All' ? MN_VOCAB : MN_VOCAB.filter(function(v){ return v.cat === vocabFilter; });
+  document.getElementById('vocabGrid').innerHTML = list.map(function(v, i) {
+    var idx = MN_VOCAB.indexOf(v);
+    var col = CAT_COLORS_MAP[v.cat] || '#555';
+    return '<div class="vocab-card" onclick="this.classList.toggle(&quot;flipped&quot;)">' +
+      '<span class="vc-cat" style="background:' + col + '22;color:' + col + '">' + v.cat + '</span>' +
+      '<span class="vc-mn">' + v.mn + '</span>' +
+      '<div class="vc-rom">' + v.rom + '</div>' +
+      '<div class="vc-en">' + v.en + '</div>' +
+      '<div class="vc-ex">' + v.ex + '</div>' +
+      '<button class="speak-btn" data-vidx="' + idx + '" onclick="event.stopPropagation();speak(MN_VOCAB[+this.dataset.vidx].mn,this)">🔊</button>' +
+    '</div>';
+  }).join('');
+}
+function setVF(c) { vocabFilter = c; renderVocab(); }
+
+// ── PHRASES ──
+function renderPhrases() {
+  document.getElementById('phraseList').innerHTML = MN_PHRASES.map(function(cat) {
+    var ci = MN_PHRASES.indexOf(cat);
+    return '<div class="phrase-cat">' +
+      '<div class="phrase-cat-title">' + cat.icon + ' ' + cat.cat + '</div>' +
+      cat.items.map(function(p, pi) {
+        return '<div class="phrase-card">' +
+          '<div class="phrase-row">' +
+            '<div class="phrase-info">' +
+              '<div class="phrase-mn">' + p.mn + '</div>' +
+              '<div class="phrase-rom">' + p.rom + '</div>' +
+              '<div class="phrase-en">' + p.en + '</div>' +
+            '</div>' +
+            '<button class="phrase-speak" data-ci="' + ci + '" data-pi="' + pi + '" onclick="speak(MN_PHRASES[+this.dataset.ci].items[+this.dataset.pi].mn,this)">🔊</button>' +
+          '</div>' +
+        '</div>';
+      }).join('') +
+    '</div>';
+  }).join('');
+}
+
+// ── FLASHCARDS ──
+var fcOrder = MN_VOCAB.map(function(_,i){return i;}), fcIdx = 0;
+function renderFC() {
+  var v = MN_VOCAB[fcOrder[fcIdx]];
+  document.getElementById('fc-mn').textContent  = v.mn;
+  document.getElementById('fc-rom').textContent = v.rom;
+  document.getElementById('fc-en').textContent  = v.en;
+  document.getElementById('fc-ex').textContent  = v.ex;
+  document.getElementById('fc-counter').textContent = (fcIdx+1) + ' / ' + MN_VOCAB.length;
+  document.getElementById('flashcard').classList.remove('flipped');
+}
+function flipCard()    { document.getElementById('flashcard').classList.toggle('flipped'); }
+function nextCard()    { fcIdx = (fcIdx+1) % MN_VOCAB.length; renderFC(); }
+function prevCard()    { fcIdx = (fcIdx-1+MN_VOCAB.length) % MN_VOCAB.length; renderFC(); }
+function speakCurrent(){ speak(MN_VOCAB[fcOrder[fcIdx]].mn); }
+function shuffleCards() {
+  for (var i = fcOrder.length-1; i > 0; i--) {
+    var j = Math.floor(Math.random()*(i+1));
+    var tmp = fcOrder[i]; fcOrder[i] = fcOrder[j]; fcOrder[j] = tmp;
+  }
+  fcIdx = 0; renderFC();
+}
+
+// ── GRAMMAR ──
+function renderGrammar() {
+  document.getElementById('grammarGrid').innerHTML = MN_GRAMMAR.map(function(t) {
+    return '<div class="grammar-card">' +
+      '<div class="grammar-header" style="background:' + t.color + '"><h3>' + t.title + '</h3><p>' + t.subtitle + '</p></div>' +
+      '<div class="grammar-body">' +
+        t.rows.map(function(r, ri) {
+          return '<div class="grammar-row ' + (ri===0?'hdr':'') + '">' +
+            '<div>' + r[0] + '</div><div>' + r[1] + '</div><div style="color:var(--muted);font-size:0.8rem">' + r[2] + '</div>' +
+          '</div>';
+        }).join('') +
+      '</div>' +
+      (t.note ? '<div class="grammar-note">💡 ' + t.note + '</div>' : '') +
+    '</div>';
+  }).join('');
+}
+
+// ── QUIZ ──
+var quizQ = [], quizIdx = 0, quizScore = 0, qType = 'mn2en';
+function shuf(a) { return [...a].sort(function(){return Math.random()-.5;}); }
+
+function buildQuiz(type) {
+  var pool = shuf(MN_VOCAB).slice(0, 15);
+  if (type === 'mn2en') return pool.map(function(v) {
+    var wrong = shuf(MN_VOCAB.filter(function(x){return x.en !== v.en;})).slice(0,3).map(function(x){return x.en;});
+    return {q:v.mn, sub:v.rom, correct:v.en, opts:shuf(wrong.concat([v.en])), note:v.rom + ' = ' + v.en};
+  });
+  if (type === 'en2mn') return pool.map(function(v) {
+    var wrong = shuf(MN_VOCAB.filter(function(x){return x.mn !== v.mn;})).slice(0,3).map(function(x){return x.mn;});
+    return {q:v.en, sub:'Choose the Mongolian', correct:v.mn, opts:shuf(wrong.concat([v.mn])), note:v.mn + ' = ' + v.en};
+  });
+  return pool.map(function(v) {
+    var wrong = shuf(MN_VOCAB.filter(function(x){return x.rom !== v.rom;})).slice(0,3).map(function(x){return x.rom;});
+    return {q:v.mn, sub:'Choose the romanisation', correct:v.rom, opts:shuf(wrong.concat([v.rom])), note:v.rom + ' = ' + v.en};
+  });
+}
+
+function startQuiz(type, btn) {
+  window._lastQType = type;
+  qType = type;
+  document.querySelectorAll('#quizTypeBar .filter-btn').forEach(function(b){b.classList.remove('active');});
+  if (btn) btn.classList.add('active');
+  quizQ = buildQuiz(type); quizIdx = 0; quizScore = 0;
+  renderQQ();
+}
+
+function renderQQ() {
+  var c = document.getElementById('quizContainer');
+  if (quizIdx >= quizQ.length) {
+    var pct = Math.round(quizScore/quizQ.length*100);
+    var msgs = ['Дахин хийгээрэй! Try again!','Муу биш! Not bad!','Сайн! Well done!','Маш сайн! Excellent!','Төгс! Perfect!'];
+    var msg  = pct<40?msgs[0]:pct<60?msgs[1]:pct<80?msgs[2]:pct<100?msgs[3]:msgs[4];
+    c.innerHTML = '<div class="score-card"><div class="score-big">' + pct + '%</div><div class="score-label">' + quizScore + ' of ' + quizQ.length + ' correct</div><div class="score-msg">' + msg + '</div><button class="retry-btn" onclick="startQuiz(this.dataset.qt, null)" data-qt="">Try Again 🔄</button></div>';
+    document.getElementById('quizScore').textContent = pct + '%';
+    return;
+  }
+  var q = quizQ[quizIdx];
+  c.innerHTML = '<div class="quiz-question"><span class="quiz-q-mn">' + q.q + '</span><div class="quiz-q-rom">' + q.sub + '</div></div>' +
+    '<div class="quiz-options">' + q.opts.map(function(o,oi){
+      return '<button class="quiz-option" data-qi="' + quizIdx + '" data-oi="' + oi + '" data-val="' + o.replace(/"/g,'&quot;') + '" onclick="selectA(this)">' + o + '</button>';
+    }).join('') + '</div>' +
+    '<div class="quiz-feedback" id="qFB"></div>' +
+    '<button class="quiz-next" id="nextBtn" onclick="quizIdx++;renderQQ()">Next →</button>';
+}
+
+function selectA(btn) {
+  var q = quizQ[+btn.dataset.qi];
+  var o = btn.dataset.val;
+  document.querySelectorAll('.quiz-option').forEach(function(b){b.disabled=true;});
+  var fb = document.getElementById('qFB');
+  if (o === q.correct) {
+    btn.classList.add('correct'); fb.className='quiz-feedback correct show';
+    fb.textContent='Зөв! Correct! ' + q.note; quizScore++;
+  } else {
+    btn.classList.add('wrong');
+    document.querySelectorAll('.quiz-option').forEach(function(b){if(b.dataset.val===q.correct)b.classList.add('correct');});
+    fb.className='quiz-feedback wrong show';
+    fb.textContent='Зөв хариулт: ' + q.correct;
+  }
+  document.getElementById('nextBtn').style.display='block';
+}
+
+function renderQuizTypeBar() {
+  var qbar = document.getElementById('quizTypeBar');
+  qbar.innerHTML = '';
+  [{t:'mn2en',l:'Mongolian → English'},{t:'en2mn',l:'English → Mongolian'},{t:'rom',l:'Mongolian → Romanisation'}].forEach(function(q,i) {
+    var b = document.createElement('button');
+    b.className = 'filter-btn' + (i===0?' active':'');
+    b.textContent = q.l;
+    b.setAttribute('data-qt', q.t);
+    b.onclick = function() { startQuiz(this.getAttribute('data-qt'), this); };
+    qbar.appendChild(b);
+  });
+}
+
+// ── INIT ──
+renderAlphabet();
+renderSounds();
+renderVocab();
+renderPhrases();
+renderFC();
+renderGrammar();
+renderQuizTypeBar();
+startQuiz('mn2en', document.querySelector('#quizTypeBar .filter-btn'));
+
+// Auto word count
+(function() {
+  var el = document.getElementById('mn-word-count');
+  if (el && typeof MN_VOCAB !== 'undefined') el.textContent = MN_VOCAB.length;
+})();
+</script>
+
+    
+    
+    <div style="font-size:0.68rem;color:rgba(255,255,255,0.35);margin-top:10px;">Affiliate link — LahLearn! earns a small commission at no cost to you.</div>
+  </div>
+</div>
+
+
+
+<!-- Preply Affiliate Banner -->
+<div style="background:linear-gradient(135deg,#1A3A5C,#2d5a87);padding:28px 20px;margin-top:40px;">
+  <div style="max-width:640px;margin:0 auto;display:flex;align-items:center;gap:24px;flex-wrap:wrap;justify-content:center;">
+    <a href="https://preply.sjv.io/c/7069011/2037661/24422" target="_blank" rel="noopener" style="flex-shrink:0;">
+      <img src="https://a.impactradius-go.com/display-ad/24422-2037661"
+           width="250" height="250" alt="Learn a language with a live tutor on Preply"
+           style="border-radius:12px;display:block;"/>
+    </a>
+    <div style="flex:1;min-width:200px;text-align:left;">
+      <div style="font-size:1.05rem;font-weight:700;color:#fff;margin-bottom:8px;line-height:1.3;">Ready to speak with a real tutor?</div>
+      <div style="font-size:0.85rem;color:rgba(255,255,255,0.75);margin-bottom:18px;line-height:1.5;">Take your learning further with a live native speaker on Preply. Get 50% off your first lesson.</div>
+      <a href="https://preply.sjv.io/c/7069011/2037661/24422" target="_blank" rel="noopener"
+         style="display:inline-block;background:#C0392B;color:#fff;text-decoration:none;padding:12px 24px;border-radius:10px;font-size:0.88rem;font-weight:700;letter-spacing:0.5px;">
+        Find a Tutor on Preply →
+      </a>
+    </div>
+  </div>
+</div>
+</body>
+</html>
